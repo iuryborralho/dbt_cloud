@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 SELECT 
     rental_id
     , duration as duration_seconds
@@ -9,5 +11,5 @@ SELECT
     , end_date
     , end_station_id
     , end_station_name
-FROM `bigquery-public-data.london_bicycles.cycle_hire` 
+FROM {{ source('london_bicycles', 'cycle_hire')}}
 WHERE EXTRACT(year from start_date) = 2017
